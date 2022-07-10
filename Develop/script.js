@@ -23,7 +23,7 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
   // Initialize password to blank string
   var random_password = '';
-
+  
   // Get the selected password length
   const password_length_field = document.querySelector("#password_length");
   let password_length = password_length_field.value;
@@ -31,7 +31,7 @@ function generatePassword() {
   // Select all of the checkboxes
   const char_type_boxes = document.querySelectorAll(".checkbox_field");
 
-  // Stores which boxes are checked into an array
+  // Stores the identity of which boxes are checked into an array
   let boxes_checked = [];
 
   // Set the checked status for each checkbox
@@ -84,8 +84,55 @@ function generatePassword() {
         break;
     }
   }
-
+  
   // Check that the password contains all of the selected character types
+  for (var i = 0 ; i < boxes_checked.length ; i++) {
+    let char_needed = boxes_checked[i];
+    
+    // Validate character type of password based on user set parameters
+    switch (char_needed) {
+      case 'lwr_case':
+        const lwr_case_regex = /[a-z]/g;
+        let password_contains_lwr_case = lwr_case_regex.test(random_password);
+
+        if (!password_contains_lwr_case) {
+          // The password did not contain any lower-case characters, so generate a new one
+          generatePassword();
+        }
+
+        break;
+      case 'upr_case':
+        const upr_case_regex = /[A-Z]/g;
+        let password_contains_upr_case = upr_case_regex.test(random_password);
+
+        if (!password_contains_upr_case) {
+          // The password did not contain any upper-case characters, so generate a new one
+          generatePassword();
+        }
+        
+        break;
+      case 'numeric':
+        const numeric_regex = /\d+/g;
+        let password_contains_numeric = numeric_regex.test(random_password);
+
+        if (!password_contains_numeric) {
+          // The password did not contain any numeric characters, so generate a new one
+          generatePassword();
+        }
+        
+        break;
+      case 'special':
+        const special_regex = /[!@#$%^&*()-+_=]/g;
+        let password_contains_special = special_regex.test(random_password);
+        
+        if (!password_contains_special) {
+          // The password did not contain any numeric characters, so generate a new one
+          generatePassword();
+        }
+        
+        break;
+    }
+  }
   
   console.log("Here's your password, friend");
   return random_password;
