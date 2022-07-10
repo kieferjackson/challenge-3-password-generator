@@ -199,8 +199,11 @@ function generateInputFields() {
   // Change this value in the future if more card elements are generated before the main one
   const PASSWORD_CARD_INDEX = 0;
   const card = document.getElementsByClassName("card")[PASSWORD_CARD_INDEX];
+
+  // Container to hold all generated input fields and their labels
   const input_container = document.createElement("div");
   input_container.setAttribute("id", "input_container");
+  input_container.setAttribute("style", "width: fit-content; margin: 0px auto;");
 
   let length_field = document.createElement("input");
   length_field.setAttribute("type", "number");
