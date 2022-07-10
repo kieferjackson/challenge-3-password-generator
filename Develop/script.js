@@ -6,7 +6,8 @@ generateInputFields();
 
 // Write password to the #password input
 function writePassword() {
-  validInputExists = checkInput();
+  // Check that user input meets criteria
+  let validInputExists = checkInput();
 
   if (validInputExists) {
     var password = generatePassword();
@@ -45,7 +46,6 @@ function generatePassword() {
   }
 
   // Set a random character based on the user defined parameters, iterating based on the desired password length
-  // This loop will be repeated if the password generated is invalid, generating a new password until a valid one is generated
   for (var i = 0 ; i < password_length ; i++) {
     // Generate a random index of the checked boxes based on the length of the boxes_checked array
     let num_char_selected = boxes_checked.length;
@@ -152,14 +152,17 @@ function checkInput () {
   const MAX_LENGTH = 128;
 
   if (length < MIN_LENGTH || length > MAX_LENGTH) {
+    // The entered password length was either too short, or too long. Reject submission
     let invalid_length_error = `The password length entered was invalid. It must be between ${MIN_LENGTH}-${MAX_LENGTH} characters.`;
     console.log(invalid_length_error);
     alert(invalid_length_error)
     return false;
   }
 
+  // Gets the checkboxes for choosing character types
   const char_type_boxes = document.querySelectorAll(".checkbox_field");
 
+  // Loop through checkboxes to find any that are selected, if none are selected, then reject submission
   for (var i = 0 ; i < char_type_boxes.length ; i++) {
     current_checkbox = char_type_boxes[i];
 
@@ -170,6 +173,7 @@ function checkInput () {
 
   }
 
+  // No character type selected, so reject submission
   let no_char_selected_error = "Please select a character type.";
   console.log(no_char_selected_error);
   alert(no_char_selected_error);
