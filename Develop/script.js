@@ -45,6 +45,7 @@ function generatePassword() {
   }
 
   // Set a random character based on the user defined parameters, iterating based on the desired password length
+  // This loop will be repeated if the password generated is invalid, generating a new password until a valid one is generated
   for (var i = 0 ; i < password_length ; i++) {
     // Generate a random index of the checked boxes based on the length of the boxes_checked array
     let num_char_selected = boxes_checked.length;
@@ -97,7 +98,8 @@ function generatePassword() {
 
         if (!password_contains_lwr_case) {
           // The password did not contain any lower-case characters, so generate a new one
-          generatePassword();
+          console.log("Password did not contain all selected character types. Generating a new one.");
+          random_password = generatePassword();
         }
 
         break;
@@ -107,7 +109,8 @@ function generatePassword() {
 
         if (!password_contains_upr_case) {
           // The password did not contain any upper-case characters, so generate a new one
-          generatePassword();
+          console.log("Password did not contain all selected character types. Generating a new one.");
+          random_password = generatePassword();
         }
         
         break;
@@ -117,7 +120,8 @@ function generatePassword() {
 
         if (!password_contains_numeric) {
           // The password did not contain any numeric characters, so generate a new one
-          generatePassword();
+          console.log("Password did not contain all selected character types. Generating a new one.");
+          random_password = generatePassword();
         }
         
         break;
@@ -127,7 +131,8 @@ function generatePassword() {
         
         if (!password_contains_special) {
           // The password did not contain any numeric characters, so generate a new one
-          generatePassword();
+          console.log("Password did not contain all selected character types. Generating a new one.");
+          random_password = generatePassword();
         }
         
         break;
@@ -147,7 +152,9 @@ function checkInput () {
   const MAX_LENGTH = 128;
 
   if (length < MIN_LENGTH || length > MAX_LENGTH) {
-    console.log(`The password length entered was invalid. It must be between ${MIN_LENGTH}-${MAX_LENGTH} characters`);
+    let invalid_length_error = `The password length entered was invalid. It must be between ${MIN_LENGTH}-${MAX_LENGTH} characters.`;
+    console.log(invalid_length_error);
+    alert(invalid_length_error)
     return false;
   }
 
@@ -163,7 +170,10 @@ function checkInput () {
 
   }
 
-  console.log("There was a problem checking inputs...");
+  let no_char_selected_error = "Please select a character type.";
+  console.log(no_char_selected_error);
+  alert(no_char_selected_error);
+
   return false;
 
 }
